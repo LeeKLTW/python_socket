@@ -1,14 +1,16 @@
 # encoding: utf-8
 import socket
 
-s = socket.socket()
-host = socket.gethostname()
-port = 1234
-s.bind((host, port))
+HOST = ''
+PORT = 50007
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+   s.bind((HOST,PORT))
+   s.listen(1)
+   conn, addr = s.accept()
 
-s.listen(5)
-while True:
-    sock, addr = s.accept()
-    print('Address',addr)
-    s.send(b'Welcome!')
-    sock.close()
+   with conn:
+       print('Connected by', addr)
+       while True:
+           data = conn.recv(1024)
+           if not data: break
+           conn.sendall(data)
