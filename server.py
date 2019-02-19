@@ -11,6 +11,7 @@ s.listen(1)
 while True:
     conn, addr = s.accept()
     print('Connected by', addr)
+    # print(str(addr[0])+':'+str(addr[1]))
 
     while True:
         data = conn.recv(1024)
